@@ -75,14 +75,6 @@
 						}
 			);
 			
-			$("td.ct_btn01:contains('등록')").on("click", function(){
-				fncAddProduct();
-			});	
-			
-			$("td.ct_btn01:contains('취소')").on("click", function(){
-				$("form")[0].reset();
-			});
-			
 			$("select[name='productCategory']").change(function(){
 				console.log("selected : " + $(this).val());	
 			});
