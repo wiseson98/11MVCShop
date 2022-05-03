@@ -71,7 +71,7 @@
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
-	                         <li><a href="#">상 품 검 색</a></li>
+	                         <li><a href="#">상품검색</a></li>
 	                         
 	                         <c:if test="${sessionScope.user.role == 'user'}">
 	                           <li><a href="#">구매이력조회</a></li>
@@ -122,8 +122,33 @@
 		 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$(self.location).attr("href","/user/getUser?userId=${sessionScope.user.userId}");
 			});
+		 	
 		 });
 		
+		//============= 판매상품관리 Event  처리 =============	
+		$(function(){
+			
+			$("a:contains('판매상품등록')").on("click" , function() {
+				self.location = "/product/addProduct"
+			});
+			
+			$("a:contains('판매상품관리')").on("click" , function() {
+				self.location = "/product/listProduct?menu=manage"
+			});
+			
+			$("a:contains('구매관리')").on("click" , function() {
+				self.location = "/purchase/listSale"
+			});
+			
+		});
 		
+		//============= 상품구매 Event  처리 =============	
+		$(function(){
+			
+			$("a:contains('상품검색')").on("click" , function() {
+				self.location = "/product/listProduct?menu=search"
+			});
+			
+		});
 		
 	</script>  

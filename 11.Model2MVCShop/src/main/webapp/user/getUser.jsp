@@ -40,7 +40,7 @@
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $( "button" ).on("click" , function() {
 					self.location = "/user/updateUser?userId=${user.userId}"
-				});
+			});
 		});
 		
 	</script>
