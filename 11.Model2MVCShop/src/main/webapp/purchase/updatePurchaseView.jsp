@@ -4,80 +4,111 @@
 
 <html>
 <head>
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<title>구매정보 수정</title>
+	<title>구매정보 수정</title>
 
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
-
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript">
-
-	function fncAddPurchase(){
-		
-		var receiverName = $("input[name='receiverName']").val();
-		var receiverPhone = $("input[name='receiverPhone']").val();
-		var dlvyAddr = $("input[name='dlvyAddr']").val();
-		
-		if(receiverName == null || receiverName.length <1){
-			alert("이름은 반드시 입력하셔야 합니다.");
-			$("input[name='receiverName']").focus();
-			return;
-		}
-		
-		if(receiverPhone == null || receiverPhone.length <1){
-			alert("연락처는 반드시 입력하셔야 합니다.");
-			$("input[name='receiverPhone']").focus();
-			return;
-		}
-		
-		if(dlvyAddr == null || dlvyAddr.length <1){
-			alert("주소는 반드시 입력하셔야 합니다.");
-			$("input[name='dlvyAddr']").focus();
-			return;
-		}
-		
-		$("form[name='updatePurchase']").attr("method", "POST").attr("action", "/purchase/updatePurchase?tranNo=${ purchase.tranNo }").submit();
-	}
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-	$(function(){
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   	<link href="/css/animate.min.css" rel="stylesheet">
+   	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body {
+	           padding-top : 50px;
+	       }
+	</style>
+	
+	<script type="text/javascript">
+	
+		function fncAddPurchase(){
+			
+			var receiverName = $("input[name='receiverName']").val();
+			var receiverPhone = $("input[name='receiverPhone']").val();
+			var dlvyAddr = $("input[name='dlvyAddr']").val();
+			
+			if(receiverName == null || receiverName.length <1){
+				$("input[name='receiverName']").attr("placeholder", "이름을 입력하세요.");
+				$("input[name='receiverName']").focus();
+				return;
+			}
+			
+			if(receiverPhone == null || receiverPhone.length <1){
+				$("input[name='receiverPhone']").attr("placeholder", "번호를 입력하세요.");
+				$("input[name='receiverPhone']").focus();
+				return;
+			}
+			
+			if(dlvyAddr == null || dlvyAddr.length <1){
+				$("input[name='dlvyAddr']").attr("placeholder", "주소를 입력하세요.");
+				$("input[name='dlvyAddr']").focus();
+				return;
+			}
+			
+			$("form").attr("method", "POST").attr("action", "/purchase/updatePurchase?tranNo=${ purchase.tranNo }").submit();
+		}
 		
-		$("td.ct_btn01:contains('수정')").click(function(){
-			fncAddPurchase();
+		$(function(){
+			
+			$("td.ct_btn01:contains('수정')").click(function(){
+				fncAddPurchase();
+			});
+			
+			$("td.ct_btn01:contains('취소')").click(function(){
+				history.go(-1);
+			});
 		});
 		
-		$("td.ct_btn01:contains('취소')").click(function(){
-			history.go(-1);
-		});
-	});
-	
-</script>
+	</script>
 
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
+	
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->
+   	
+   	<!--  화면구성 div Start /////////////////////////////////////-->
+	<div class="container">
+	
+		<div class="page-header">
+	       <h3 class=" text-info">구매 정보 수정</h3>
+	    </div>
+	
+		<!-- form Start /////////////////////////////////////-->
+		<form class="form-horizontal">
+			
+			<div class="form-group">
+			    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">구매자아이디</label>
+			    <div class="col-sm-4">
+			      <input type="text" class="form-control" id="prodName" name="prodName" value="${ product.prodName }" />
+			       <span id="helpBlock" class="help-block">
+			      	<strong class="text-danger"></strong>
+			      </span>
+			    </div>
+		  	</div>
+			
+		</form>
+	</div>
 
 <form name="updatePurchase">
 
-<table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif"  width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">구매정보수정</td>
-					<td width="20%" align="right">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
+
 
 <table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
 	<tr>

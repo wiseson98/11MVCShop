@@ -33,7 +33,7 @@
 	</style>
 	
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 	<script type="text/javascript">
 
 	function fncAddProduct(){
@@ -44,19 +44,19 @@
 		var price = $("input[name='price']").val();
 		
 		if(name == null || name.length<1){
-			alert("상품명은 반드시 입력하여야 합니다.");
+			$("input[name='prodName']").attr("placeholder", "상품명을 입력하세요.");
 			return;
 		}
 		if(detail == null || detail.length<1){
-			alert("상품상세정보는 반드시 입력하여야 합니다.");
+			$("input[name='prodDetail']").attr("placeholder", "상품정보를 입력하세요.");
 			return;
 		}
 		if(manuDate == null || manuDate.length<1){
-			alert("제조일자는 반드시 입력하셔야 합니다.");
+			$("input[name='manuDate']").attr("placeholder", "제조일자를 입력하세요.");
 			return;
 		}
 		if(price == null || price.length<1){
-			alert("가격은 반드시 입력하셔야 합니다.");
+			$("input[name='price']").attr("placeholder", "가격을 입력하세요.");
 			return;
 		}
 			

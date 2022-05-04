@@ -59,7 +59,7 @@
 		                         <li><a href="#">판매상품등록</a></li>
 		                         <li><a href="#">판매상품관리</a></li>
 		                         <li class="divider"></li>
-		                         <li><a href="#">구매관리</a></li>
+		                         <li><a href="#">판매관리</a></li>
 		                     </ul>
 		                </li>
 	                 </c:if>
@@ -129,15 +129,15 @@
 		$(function(){
 			
 			$("a:contains('판매상품등록')").on("click" , function() {
-				self.location = "/product/addProduct"
+				self.location = "/product/addProduct";
 			});
 			
 			$("a:contains('판매상품관리')").on("click" , function() {
-				self.location = "/product/listProduct?menu=manage"
+				self.location = "/product/listProduct?menu=manage";
 			});
 			
-			$("a:contains('구매관리')").on("click" , function() {
-				self.location = "/purchase/listSale"
+			$("a:contains('판매관리')").on("click" , function() {
+				self.location = "/purchase/listSale";
 			});
 			
 		});
@@ -146,7 +146,11 @@
 		$(function(){
 			
 			$("a:contains('상품검색')").on("click" , function() {
-				self.location = "/product/listProduct?menu=search"
+				self.location = "/product/listProduct?menu=search";
+			});
+			
+			$("a:contains('구매이력조회')").on("click" , function() {
+				self.location = "/purchase/listPurchase";
 			});
 			
 		});
