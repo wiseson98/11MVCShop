@@ -64,13 +64,14 @@
 		
 		$(function(){
 			
-			$("td.ct_btn01:contains('수정')").click(function(){
+			$("button.btn.btn-primary:contains('구매')").on("click", function(){
 				fncAddPurchase();
 			});
 			
-			$("td.ct_btn01:contains('취소')").click(function(){
+			$("button.btn.btn-primary:contains('취소')").on("click", function(){
 				history.go(-1);
 			});
+			
 		});
 		
 	</script>
@@ -94,138 +95,67 @@
 		<form class="form-horizontal">
 			
 			<div class="form-group">
-			    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">구매자아이디</label>
+			    <label for="buyerId" class="col-sm-offset-1 col-sm-3 control-label">구매자아이디</label>
 			    <div class="col-sm-4">
-			      <input type="text" class="form-control" id="prodName" name="prodName" value="${ product.prodName }" />
-			       <span id="helpBlock" class="help-block">
-			      	<strong class="text-danger"></strong>
-			      </span>
+			    	<p class="form-control-static">${ purchase.buyer.userId }</p>
+			    	<input type="hidden" name="buyerId" value="${ purchase.buyer.userId }">
+			    </div>
+		  	</div>
+		  	
+			<div class="form-group">
+			    <label for="paymentOption" class="col-sm-offset-1 col-sm-3 control-label">결제수단</label>
+			    <div class="col-sm-4">
+			    	<p class="form-control-static">
+			    		${ purchase.paymentOption == "001" ? "현금구매" : "신용구매" }
+			    	</p>			    
 			    </div>
 		  	</div>
 			
+			<div class="form-group">
+			    <label for="receiverName" class="col-sm-offset-1 col-sm-3 control-label">구매자 이름</label>
+			    <div class="col-sm-4">
+			      <input type="text" class="form-control" id="receiverName" name="receiverName" value="${ purchase.receiverName }"/>
+			    </div>
+		  	</div>
+		  	
+		  	<div class="form-group">
+			    <label for="receiverPhone" class="col-sm-offset-1 col-sm-3 control-label">구매자 연락처</label>
+			    <div class="col-sm-4">
+			      <input type="text" class="form-control" id="receiverPhone" name="receiverPhone" value="${ purchase.receiverPhone }"/>
+			    </div>
+		  	</div>
+		  	
+		  	<div class="form-group">
+			    <label for="dlvyAddr" class="col-sm-offset-1 col-sm-3 control-label">구매자 주소</label>
+			    <div class="col-sm-4">
+			      <input type="text" class="form-control" id="dlvyAddr" name="dlvyAddr" value="${ purchase.dlvyAddr }"/>
+			    </div>
+		  	</div>
+		  	
+		  	<div class="form-group">
+			    <label for="dlvyRequest" class="col-sm-offset-1 col-sm-3 control-label">구매요청사항</label>
+			    <div class="col-sm-4">
+			      <input type="text" class="form-control" id="dlvyRequest" name="dlvyRequest" value="${ purchase.dlvyRequest }"/>
+			    </div>
+		  	</div>
+		  	
+		  	<div class="form-group">
+			    <label for="dlvyDate" class="col-sm-offset-1 col-sm-3 control-label">배송희망일자</label>
+			    <div class="col-sm-4">
+			      <input type="date" class="form-control" id="dlvyDate" name="dlvyDate" />
+			    </div>
+			</div>
+			
+			<div class="form-group">
+			    <div class="col-sm-offset-4  col-sm-4 text-center">
+			      <button type="button" class="btn btn-primary">수정</button>
+				  <button type="button" class="btn btn-primary">취소</button>
+			    </div>
+			</div>
+			
 		</form>
+		
 	</div>
-
-<form name="updatePurchase">
-
-
-
-<table width="600" border="0" cellspacing="0" cellpadding="0"	align="center" style="margin-top: 13px;">
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자아이디</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${ user.userId }</td>
-		<input type="hidden" name="buyerId" value="${ user.userId }">
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매방법</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			${ purchase.paymentOption == "001" ? "현금구매" : "신용구매" }
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자이름</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="receiverName" 	class="ct_input_g" style="width: 100px; height: 19px" 
-							maxLength="20" value="${ purchase.receiverName }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자 연락처</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="receiverPhone" class="ct_input_g" style="width: 100px; height: 19px" 
-							maxLength="20" value="${ purchase.receiverPhone }" />
-		</td>
-	</tr>
-
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매자주소</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="dlvyAddr" class="ct_input_g" style="width: 100px; height: 19px" 
-							maxLength="20" value="${ purchase.dlvyAddr }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">구매요청사항</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input 	type="text" name="dlvyRequest" 	class="ct_input_g" style="width: 100px; height: 19px" 
-							maxLength="20" value="${ purchase.dlvyRequest }" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">배송희망일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td width="200" class="ct_write01">
-			<input type="text" readonly="readonly" name="dlvyDate" class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="20"/>
-				<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-							onclick="show_calendar('document.updatePurchase.dlvyDate', document.updatePurchase.dlvyDate.value)"/>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-	<tr>
-		<td width="53%"></td>
-		<td align="right">
-		<table border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<!-- <input type="submit" value="수정"/> -->
-					수정
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
-				<td width="30"></td>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<!-- <a href="javascript:history.go(-1)">취소</a> -->
-					취소
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
-			</tr>
-		</table>
-		</td>
-	</tr>
-</table>
-</form>
 
 </body>
 </html>
