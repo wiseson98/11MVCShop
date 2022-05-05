@@ -3,6 +3,7 @@ package com.model2.mvc.web.product;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Page;
@@ -61,21 +63,18 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartFile file) throws Exception{
+	public String addProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartHttpServletRequest mtpReq) throws Exception{
 		
 		System.out.println("/product/addProduct : POST ");
 		
 		System.out.println("productCategory : " + categoryNo);
 		
-		if(!file.isEmpty()) {
-			System.out.println("file exist");
-			
-			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-			
-			FileCopyUtils.copy(file.getBytes(), new File(uploadPath, savedName));
-					
-			product.setFileName(savedName);
-		}		
+		List<MultipartFile> fileList = mtpReq.getFiles("file");
+		String fileName = getFile(fileList);	
+		System.out.println("[ 최종 fileName ] =>" + fileName);
+		if(fileName != null) {
+			product.setFileName(fileName);
+		}
 		
 		product.setProdCategory(new Category());
 		product.getProdCategory().setCategoryNo(categoryNo);
@@ -94,24 +93,22 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
-		String cookieValue = null;
-		Cookie cookie = null;
-		
-		cookieValue = Integer.toString(prodNo);
-		
-		if(request.getCookies() != null) {
-			for(Cookie c : request.getCookies()) {
-				if(c.getName().equals("history")) {
-					cookieValue = URLDecoder.decode(c.getValue(), "euc-kr");
-					cookieValue += "," + prodNo;
-					System.out.println("CookieValue(history 존재): " + cookieValue);
-				}
+		if(product.getFileName() != null) {
+			System.out.println("1");
+			String[] fileNames = null;
+			if(product.getFileName().indexOf(",") > 0) {
+				System.out.println("2");
+				fileNames = product.getFileName().split(",");				
+			}else {
+				System.out.println("3");
+				System.out.println(product.getFileName());
+				fileNames = new String[1];
+				fileNames[0] = product.getFileName();
+				System.out.println("3 : " + fileNames[0]);
 			}
+			model.addAttribute("fileNames", fileNames);
 		}
-		System.out.println("CookieValue: " + cookieValue);
-		cookie = new Cookie("history", URLEncoder.encode(cookieValue, "euc-kr"));
-		response.addCookie(cookie);
-		
+			
 		return "forward:/product/readProduct.jsp";
 	}
 	
@@ -159,16 +156,15 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
-	public String updateProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartFile file ) throws Exception{
+	public String updateProduct(@ModelAttribute("product") Product product, @RequestParam("productCategory") int categoryNo, MultipartHttpServletRequest mtpReq ) throws Exception{
 		
 		System.out.println("/updateProduct");
 		
-		if(!file.isEmpty()) {
-			String savedName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-			
-			FileCopyUtils.copy(file.getBytes(), new File(uploadPath, savedName));
-					
-			product.setFileName(savedName);
+		List<MultipartFile> fileList = mtpReq.getFiles("file");
+		String fileName = getFile(fileList);	
+		System.out.println("[ 최종 fileName ] =>" + fileName);
+		if(fileName != null) {
+			product.setFileName(fileName);
 		}
 		
 		product.setProdCategory(new Category());
@@ -178,5 +174,37 @@ public class ProductController {
 		
 		return "redirect:/product/getProduct?prodNo=" + product.getProdNo();
 	}	
-
+	
+	public String getFile(List<MultipartFile> fileList) throws Exception{
+		
+		System.out.println("fileList size : " + fileList.size());
+		
+		String fileName = "";		
+		
+		if(fileList.size() <= 1) {
+			
+			fileName = fileList.get(0).getOriginalFilename().equals("") ? null : System.currentTimeMillis() + fileList.get(0).getOriginalFilename();
+			
+		}else {
+			
+			for(MultipartFile mf : fileList) {
+				
+				System.out.println("파일 이름 : " + mf.getOriginalFilename());
+					
+				String saveName = System.currentTimeMillis() + mf.getOriginalFilename();
+					
+				System.out.println("saveName : " + saveName);
+					
+				FileCopyUtils.copy(mf.getBytes(), new File(uploadPath, saveName));
+					
+				fileName += saveName + ",";
+				
+			}
+			
+			fileName = fileName.substring(0, (fileName.length()-1));
+			System.out.println("fileName = " + fileName);
+		}		
+		
+		return fileName;
+	}
 }//end of class

@@ -21,8 +21,8 @@
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
     	 body >  div.container{ 
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
+        	border: 1px solid #bfcad3;
+            margin-top: 30px;
         }
     </style>
     
@@ -84,7 +84,10 @@
 		<div class="row">
 		
 			<div class="col-md-6">
-					<img src="/images/logo-spring.png" class="img-rounded" width="100%" />
+					<!-- <img src="/images/logo-spring.png" class="img-rounded" width="100%" /> -->
+					<div class="embed-responsive embed-responsive-4by3">
+						<iframe src="https://www.youtube.com/embed/mI9oyFMUlfg"></iframe>
+					</div>
 			</div>
 	   	 	
 	 	 	<div class="col-md-6">

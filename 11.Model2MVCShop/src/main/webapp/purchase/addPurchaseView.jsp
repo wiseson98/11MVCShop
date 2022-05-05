@@ -31,6 +31,8 @@
     </style>
      
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
 	<script type="text/javascript">
 	
 		function fncAddPurchase() {
@@ -55,6 +57,7 @@
 			$("form").attr("method", "POST").attr("action", "/purchase/addPurchase?tranCode=002").submit();	
 		}
 		
+		
 		$(function(){
 			
 			$("button.btn.btn-primary:contains('구매')").on("click", function(){
@@ -63,6 +66,20 @@
 			
 			$("button.btn.btn-primary:contains('취소')").on("click", function(){
 				history.go(-1);
+			});	
+			
+			$("#addrSearch").click(function(){
+				
+				new daum.Postcode({
+		            oncomplete: function(data) {
+		                var addr = data.address; // 최종 주소 변수
+
+		                // 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById("dlvyAddr").value = addr;
+		                
+		            }
+		        }).open();
+				
 			});
 			
 		});
@@ -149,8 +166,9 @@
 			
 			<div class="form-group">
 			    <label for="dlvyAddr" class="col-sm-offset-1 col-sm-3 control-label">배송주소</label>
-			    <div class="col-sm-4">
-			      <input type="text" class="form-control" id="dlvyAddr" name="dlvyAddr" value="${ user.addr }"/>
+			    <div class="col-sm-4">				  
+			      <input type="text" class="form-control" id="dlvyAddr" name="dlvyAddr" readonly="readonly" /><br/>
+			      <input type="button" class="btn btn-default" id="addrSearch" value="주소 검색" />
 			    </div>
 			</div>
 			

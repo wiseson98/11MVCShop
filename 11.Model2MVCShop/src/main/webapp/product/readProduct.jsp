@@ -32,7 +32,7 @@
 
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
-	<script type="text/javascript">
+	<script type="text/javascript">		
 		
 		$(function(){
 			
@@ -90,7 +90,16 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>상품이미지</strong></div>
 			<div class="col-xs-8 col-md-4">
-				<img src="/images/uploadFiles/${ ! empty product.fileName ? product.fileName : "../empty.GIF"}"/>
+				<c:choose>
+					<c:when test="${ ! empty fileNames }">
+						<c:forEach var="fileName" items="${ fileNames }">
+							<img class="img-circle" src = "/images/uploadFiles/${ fileName }" width="30%" height="16%"/>	
+						</c:forEach>	
+					</c:when>
+					<c:otherwise>
+						<img src = "/images/uploadFiles/../empty.GIF"/>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		

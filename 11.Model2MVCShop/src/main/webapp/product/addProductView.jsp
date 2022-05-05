@@ -54,6 +54,12 @@
 				$("input[name='price']").attr("placeholder", "가격을 입력하세요.");
 				return;
 			}
+			
+	        if (parseInt($("input[type='file']").get(0).files.length)>3){
+		         alert("이미지는 3개까지 가능합니다.");
+		         return;
+	        }
+	        
 			//$("form").attr("method" , "POST").attr("action", "/user/addUser").submit();
 			$("form").attr("method", "POST").attr("action", "/product/addProduct").attr("enctype", "multipart/form-data").submit();
 		}
@@ -95,6 +101,8 @@
 				$("form")[0].reset();
 			});
 		});
+		
+		
 	</script>
 </head>
 
@@ -154,7 +162,7 @@
 		 <div class="form-group">
 		    <label for="file" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		    <div class="col-sm-4">
-    			<input type="file" id="file" name="file" />
+    			<input type="file" id="file" name="file" multiple="multiple" />
     		</div>
 		 </div>
 		 

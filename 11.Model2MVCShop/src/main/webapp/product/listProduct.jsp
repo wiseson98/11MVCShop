@@ -30,6 +30,7 @@
 	  body {
 	           padding-top : 50px;
 	       }
+	  
 	</style>	
 	
 	<script type="text/javascript">
@@ -39,7 +40,12 @@
 			$("#currentPage").val(currentPage);
 			$("form").attr("method", "POST").attr("action", "/product/listProduct").submit();
 		}
-	
+		
+		$( window ).scroll(function() {
+			
+			
+		});
+		
 		//============= "검색"  Event  처리 =============	
 		 $(function() {
 			 //==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -49,8 +55,8 @@
 		 });
 		
 		$(function(){
-						
-			$("td:nth-child(2)").on("click", function(){
+					
+			$("a.thumbnail").on("click", function(){				
 				
 				var pageLink = ($("input[name='menu']").val() == "manage") ? "/product/updateProduct" : "/product/getProduct" ;	
 				console.log($(this).attr("value"));
@@ -58,9 +64,6 @@
 				self.location = pageLink + "?prodNo=" + $(this).attr("value") + "&menu=" + $("input[name='menu']").val();
 			});
 			
-			$("td:nth-child(2)").css("color" , "blue");
-			
-			$(".ct_list_pop:nth-child(4n+6)").css("background-color" , "whitesmoke");
 			
 			$("#searchKeyword").autocomplete({
 				source: function(request, response){
@@ -151,46 +154,32 @@
 		</div>
 		<!-- table 위쪽 검색 End /////////////////////////////////////-->
 		
-		<!--  table Start /////////////////////////////////////-->
-    	<table class="table table-hover table-striped" >
+		<div class="row">
+		<c:set var="i" value="0" />
+		<c:forEach var="product" items="${list}">
+			<c:set var="i" value="${ i+1 }" />			
+			  <div class="col-sm-6 col-md-4" >
+			    <a href="#" class="thumbnail" value="${ product.prodNo }">
+			      <img src="/images/uploadFiles/${ product.fileName }" onerror="this.onerror=null; this.src='https://via.placeholder.com/240X200?text=No Image';" style="width: auto; height: 270px;"/>
+			      <div class="caption">
+			        <h4>${ product.prodName }</h4>
+			        <p>가격 : ${ product.price }</p>
+			        <p>
+			        	<c:choose>
+							<c:when test="${ product.proTranCode != '001' }">
+								판매 완료
+							</c:when>
+							<c:otherwise>
+								판매중
+							</c:otherwise>
+						</c:choose>
+			        </p>
+			      </div>
+			    </a>
+			  </div>			
+		</c:forEach>
+		</div>
 		
-			<thead>
-	          <tr>
-	            <th align="center">No</th>
-	            <th align="left" >상품명</th>
-	            <th align="left">가격</th>
-	            <th align="left">등록일</th>
-	            <th align="left">현재상태</th>
-	          </tr>
-	        </thead>
-	        
-	        <tbody>
-		
-			  <c:set var="i" value="0" />
-			  <c:forEach var="product" items="${list}">
-				<c:set var="i" value="${ i+1 }" />
-				<tr>
-				  <td align="center">${ i }</td>
-				  <td align="left"  title="Click : 상품정보 확인" value="${ product.prodNo }">${ product.prodName }</td>
-				  <td align="left">${ product.price }</td>
-				  <td align="left">${ product.regDate }</td>
-				  <td align="left">
-				  	<c:choose>
-						<c:when test="${ product.proTranCode != '001' }">
-							판매 완료
-						</c:when>
-						<c:otherwise>
-							판매중
-						</c:otherwise>
-					</c:choose>
-				  </td>
-				</tr>
-	          </c:forEach>
-        
-        	</tbody>
-		
-		</table>		
-		<!--  table End /////////////////////////////////////-->
 	</div>	
 	<!--  화면구성 div End /////////////////////////////////////--> 	
  	

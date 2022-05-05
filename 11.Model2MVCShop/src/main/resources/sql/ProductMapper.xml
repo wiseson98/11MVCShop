@@ -66,7 +66,7 @@
 	<select  id="getProductList"  parameterType="map"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  			FROM		(	SELECT p.prod_no, p.prod_name, p.price, p.reg_date, NVL(t.tran_status_code,'001') prod_status_code
+	  			FROM		(	SELECT p.prod_no, p.prod_name, p.price, p.reg_date, case when INSTR(image_file, ',') > 0 then SUBSTR(image_file, 1, INSTR(image_file, ',') - 1) else image_file end as image_file, NVL(t.tran_status_code,'001') prod_status_code
 								FROM product p, transaction t
 								<where>
 									p.prod_no = t.prod_no(+)
