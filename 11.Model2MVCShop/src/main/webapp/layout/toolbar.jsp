@@ -46,6 +46,10 @@
 				self.location = "/purchase/listSale";
 			});
 			
+			$("a:contains('배송조회')").on("click" , function() {
+				self.location = "/purchase/deliveryTracking";
+			});
+			
 		});
 		
 		//============= 상품구매 Event  처리 =============	
@@ -132,6 +136,7 @@
 		                         <li><a href="#">판매상품관리</a></li>
 		                         <li class="divider"></li>
 		                         <li><a href="#">판매내역관리</a></li>
+		                         <li><a href="#">배송조회</a></li>
 		                     </ul>
 		                </li>
 	              </c:if> 

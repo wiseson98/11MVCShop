@@ -32,8 +32,11 @@
 
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">		
 		
+		
+	
 		$(function(){
 			
 			$("button:contains('구매')").on("click", function(){
@@ -44,7 +47,7 @@
 				history.go(-1);
 			});			
 			
-		});
+		});		
 		
 	</script>
 </head>
@@ -112,10 +115,57 @@
 	  		<div class="col-md-12 text-center ">
 	  			<button type="button" class="btn btn-primary">구매</button>
 	  			<button type="button" class="btn btn-primary">이전</button>
+	  			<a id="create-kakao-link-btn" href="javascript:;">
+				  <img
+				    src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
+				    alt="카카오링크 보내기 버튼"
+				    width="37px"
+				  />
+				</a>
 	  		</div>
 		</div>
 		
 	</div>
-
+	<script type="text/javascript">
+		Kakao.init('9e7bfe9bda76f4fc82c74df2aa9c4c98');
+		Kakao.isInitialized();
+		console.log(Kakao.isInitialized());
+		
+		Kakao.Link.createDefaultButton({
+		    container: '#create-kakao-link-btn',
+		    objectType: 'commerce',
+		    content: {
+		      title: 'Fait Main',
+		      imageUrl:
+		        'http://k.kakaocdn.net/dn/dScJiJ/btqB3cwK1Hi/pv5qHVwetz5RZfPZR3C5K1/kakaolink40_original.png',
+		      link: {
+		        mobileWebUrl: 'http://192.168.0.90:8080/product/getProduct?prodNo=${ product.prodNo }',
+		        webUrl: 'http://192.168.0.90:8080/product/getProduct?prodNo=${ product.prodNo }',
+		      },
+		    },
+		    commerce: {
+		      productName: '${ product.prodName }',
+		      regularPrice: ${ product.price },
+		      discountRate: 0,
+		      discountPrice: ${ product.price }
+		    },
+		    buttons: [
+		      {
+		        title: '구매하기',
+		        link: {
+		          mobileWebUrl: 'http://192.168.0.90:8080/product/getProduct?prodNo=${ product.prodNo }',
+		          webUrl: 'http://192.168.0.90:8080/product/getProduct?prodNo=${ product.prodNo }',
+		        },
+		      },
+		      {
+		        title: '공유하기',
+		        link: {
+		          mobileWebUrl: 'https://developers.kakao.com',
+		          webUrl: 'https://developers.kakao.com',
+		        },
+		      },
+		    ],
+		})
+	</script>
 </body>
 </html>
