@@ -69,4 +69,9 @@ public class ProductDaoImpl implements ProductDao {
 		return sqlSession.selectList("ProductMapper.getCategory");
 	}
 
+	@Override
+	public void addSummer(String contents) throws Exception {
+		sqlSession.insert("ProductMapper.addSummer", contents);		
+	}
+
 }//end 

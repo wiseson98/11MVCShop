@@ -63,4 +63,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getCategory();
 	}
 
+	@Override
+	public void addSummer(String contents) throws Exception {
+		productDao.addSummer(contents);		
+	}
+
 }

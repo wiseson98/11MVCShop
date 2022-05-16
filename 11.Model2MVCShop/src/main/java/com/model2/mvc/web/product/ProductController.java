@@ -54,6 +54,18 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+	@RequestMapping(value = "/addSummer", method = RequestMethod.POST)
+	public String addSummer(@RequestParam("boardContents") String contents) throws Exception{
+		
+		System.out.println("/product/addSummer : POST ");
+		
+		System.out.println("addSummer : " + contents);
+		
+		productService.addSummer(contents);
+				
+		return "¿Ï·á";
+	}
+	
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String addProduct() throws Exception{
 		
