@@ -54,6 +54,7 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+/*	Summernote	*/
 	@RequestMapping(value = "/addSummer", method = RequestMethod.POST)
 	public String addSummer(@RequestParam("boardContents") String contents) throws Exception{
 		
@@ -64,6 +65,18 @@ public class ProductController {
 		productService.addSummer(contents);
 				
 		return "¿Ï·á";
+	}
+	
+	@RequestMapping(value = "/getSummer", method = RequestMethod.GET)
+	public String getSummer(Model model) throws Exception{
+		
+		System.out.println("/getSummer");	
+		
+		String content = productService.getSummer(10001);
+		
+		model.addAttribute("summer", content);
+			
+		return "forward:/product/getSummer.jsp";
 	}
 	
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)

@@ -30,13 +30,20 @@
 		<result property="categoryPrevLevel" 	column="category_prev_level" 	jdbcType="NUMERIC" />
 	</resultMap>
 	
-	<!-- SQL : INSERT -->
+	<!-- Summernote -->	
 	<insert 	id="addSummer"		parameterType="String" >
 	 	INSERT
 		INTO board( board_seq, writer, title, content) 
 		VALUES	 	( board_seq.NEXTVAL, 'writer', 'title', NVL(#{contents:VARCHAR}, EMPTY_CLOB()))
 	</insert>
 	
+	<select  id="getSummer"  parameterType="int"	 resultType="String">
+	  	SELECT	content
+	  	FROM	board 
+	  	WHERE	board_seq=#{value:VARCHAR};						
+	 </select>
+	
+	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 	 	INSERT
 		INTO product( prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, category_no) 

@@ -29,4 +29,7 @@ public interface ProductService {
 	
 	// summernote
 	public void addSummer(String contents) throws Exception;
+	
+	// summernote get
+	public String getSummer(int boardNo) throws Exception;
 }

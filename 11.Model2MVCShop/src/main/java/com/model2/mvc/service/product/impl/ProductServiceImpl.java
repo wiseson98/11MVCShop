@@ -68,4 +68,9 @@ public class ProductServiceImpl implements ProductService {
 		productDao.addSummer(contents);		
 	}
 
+	@Override
+	public String getSummer(int boardNo) throws Exception {
+		return productDao.getSummer(boardNo);
+	}
+
 }
