@@ -30,17 +30,25 @@
 		<result property="categoryPrevLevel" 	column="category_prev_level" 	jdbcType="NUMERIC" />
 	</resultMap>
 	
+	<resultMap type="board" id="boardSelectMap">
+		<result property="boardNo" 			column="board_seq" 			jdbcType="NUMERIC" />
+		<result property="writer"			column="writer" 			jdbcType="VARCHAR" />
+		<result property="title" 			column="title" 				jdbcType="VARCHAR" />
+		<result property="content" 			column="content" 			jdbcType="CLOB"		javaType="java.lang.String" />
+		<result property="image" 			column="image" 				jdbcType="VARCHAR" />
+	</resultMap>
+	
 	<!-- Summernote -->	
-	<insert 	id="addSummer"		parameterType="String" >
+	<insert 	id="addSummer"		parameterType="board" >
 	 	INSERT
-		INTO board( board_seq, writer, title, content) 
-		VALUES	 	( board_seq.NEXTVAL, 'writer', 'title', NVL(#{contents:VARCHAR}, EMPTY_CLOB()))
+		INTO board( board_seq, writer, title, content, image) 
+		VALUES	 	( board_seq.NEXTVAL, 'writer', 'title', NVL(#{content:VARCHAR}, EMPTY_CLOB()), #{image:VARCHAR})
 	</insert>
 	
 	<select  id="getSummer"  parameterType="int"	 resultType="String">
 	  	SELECT	content
 	  	FROM	board 
-	  	WHERE	board_seq=#{value:VARCHAR};						
+	  	WHERE	board_seq=#{value}						
 	 </select>
 	
 	<!-- SQL : INSERT -->

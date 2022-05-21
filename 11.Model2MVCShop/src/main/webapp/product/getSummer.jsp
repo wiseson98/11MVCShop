@@ -32,17 +32,7 @@
 
 	<!-- CDN(Content Delivery Network) 호스트 사용 -->
 	<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script type="text/javascript">		
-		
-		
-	
-		$(function(){
-			
-				
-			
-		});		
-		
+	<script type="text/javascript">	
 	</script>
 </head>
 
@@ -62,8 +52,7 @@
 	    <div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>상품명</strong></div>
 			<div class="col-xs-8 col-md-4">${ summer }</div>
-		</div>		
-		
+		</div>			
 		
 	</div>
 </body>

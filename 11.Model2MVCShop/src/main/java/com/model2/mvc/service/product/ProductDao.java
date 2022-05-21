@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Board;
 import com.model2.mvc.service.domain.Product;
 
 public interface ProductDao {
@@ -30,7 +31,7 @@ public interface ProductDao {
 	public List<Category> getCategory() throws Exception;
 		
 	// summernote add
-	public void addSummer(String contents) throws Exception;
+	public void addSummer(Board board) throws Exception;
 	
 	// summernote get
 	public String getSummer(int boardNo) throws Exception;

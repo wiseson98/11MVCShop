@@ -54,7 +54,7 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-/*	Summernote	*/
+/*	Summernote	
 	@RequestMapping(value = "/addSummer", method = RequestMethod.POST)
 	public String addSummer(@RequestParam("boardContents") String contents) throws Exception{
 		
@@ -66,7 +66,7 @@ public class ProductController {
 				
 		return "¿Ï·á";
 	}
-	
+*/	
 	@RequestMapping(value = "/getSummer", method = RequestMethod.GET)
 	public String getSummer(Model model) throws Exception{
 		

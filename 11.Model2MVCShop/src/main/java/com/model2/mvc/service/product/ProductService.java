@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Board;
 import com.model2.mvc.service.domain.Product;
 
 public interface ProductService {
@@ -28,7 +29,7 @@ public interface ProductService {
 	public List<Category> getCategory() throws Exception;
 	
 	// summernote
-	public void addSummer(String contents) throws Exception;
+	public void addSummer(Board board) throws Exception;
 	
 	// summernote get
 	public String getSummer(int boardNo) throws Exception;

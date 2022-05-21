@@ -134,6 +134,7 @@
 		                     <ul class="dropdown-menu">
 		                         <li><a href="#">판매상품등록</a></li>
 		                         <li><a href="/product/summernoteAdd.jsp">summernoteAdd</a></li>
+		                         <li><a href="/product/getSummer">getSummer</a></li>
 		                         <li><a href="#">판매상품관리</a></li>
 		                         <li class="divider"></li>
 		                         <li><a href="#">판매내역관리</a></li>

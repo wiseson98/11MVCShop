@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Board;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
@@ -64,8 +65,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addSummer(String contents) throws Exception {
-		productDao.addSummer(contents);		
+	public void addSummer(Board board) throws Exception {
+		productDao.addSummer(board);		
 	}
 
 	@Override

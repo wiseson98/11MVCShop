@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.model2.mvc.common.Category;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Board;
 import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductDao;
 
@@ -70,8 +71,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public void addSummer(String contents) throws Exception {
-		sqlSession.insert("ProductMapper.addSummer", contents);		
+	public void addSummer(Board board) throws Exception {
+		sqlSession.insert("ProductMapper.addSummer", board);		
 	}
 
 	@Override

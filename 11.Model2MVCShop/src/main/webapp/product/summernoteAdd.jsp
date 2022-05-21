@@ -20,7 +20,7 @@
     <!-- Bootstrap Dropdown Hover JS -->
    	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    	
-   	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+   	
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
    	
@@ -39,7 +39,7 @@
 			
 			 $('#summernote').summernote({
 					// 에디터 높이
-			        height: 300,
+			        height: 500,
 			        // 에디터 한글 설정
 			        lang: "ko-KR",
 			        // 에디터에 커서 이동 (input창의 autofocus라고 생각)
@@ -59,16 +59,47 @@
 			            ['para', ['ul', 'ol', 'paragraph']],
 			            // 줄간격
 			            ['height', ['height']],
+			         	// 그림첨부
+			            ['insert', ['picture']],
 			            // 코드보기, 확대해서보기, 도움말
-			            ['view', ['codeview','fullscreen', 'help']]
+			            ['view', ['fullscreen', 'help']]			            
 			        ],
 			        // 추가한 글꼴
 			        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
 			        // 추가한 폰트사이즈
-			        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-			 });
-			
+			        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+			        
+			        callbacks: {
+			            onImageUpload: function(files, editor, welEditable) {
+			            	// 파일 업로드(다중업로드를 위해 반복문 사용)
+			            	for(var i=files.length-1; i>=0; i--){
+			            		console.log("aaa");
+			            		uploadSummernoteImageFile(files[i], this);	
+			            	}
+			            }
+			        }
+			 });			
 		});
+		
+		function uploadSummernoteImageFile(file, el) {
+			console.log("bbb");
+			data = new FormData();
+			data.append('file', file);
+			$.ajax({
+				data: data,
+				type: "POST",
+				url: "/product/uploadSummernoteImageFile",
+				contentType: false,
+				enctype: "multipart/form-data",
+				processData: false,
+				success: function(data){
+					console.log(data);
+					$(el).summernote("editor.insertImage", "/images/uploadFiles/"+data);
+				}
+				
+				
+			});
+		}
 		
 	</script>
 </head>
@@ -90,11 +121,11 @@
 		
 		<form method="post" action="/product/addSummer">
 		  
-		  <textarea id="summernote" name="boardContents" rows="10"></textarea>
+		  <textarea id="summernote" name="content" rows="10"></textarea>
 		  
 		  <br/><br/>
 		  
-		  <button type="submit">등록</button>
+		  <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
 		  
 		</form>
 		
