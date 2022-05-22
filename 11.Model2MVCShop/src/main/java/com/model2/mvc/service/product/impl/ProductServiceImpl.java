@@ -65,8 +65,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addSummer(Board board) throws Exception {
-		productDao.addSummer(board);		
+	public void addSummer(String content) throws Exception {
+		productDao.addSummer(content);		
 	}
 
 	@Override

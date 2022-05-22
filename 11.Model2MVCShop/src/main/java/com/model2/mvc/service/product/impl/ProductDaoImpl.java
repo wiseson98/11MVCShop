@@ -71,8 +71,8 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public void addSummer(Board board) throws Exception {
-		sqlSession.insert("ProductMapper.addSummer", board);		
+	public void addSummer(String content) throws Exception {
+		sqlSession.insert("ProductMapper.addSummer", content);		
 	}
 
 	@Override

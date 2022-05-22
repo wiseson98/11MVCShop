@@ -31,7 +31,7 @@ public interface ProductDao {
 	public List<Category> getCategory() throws Exception;
 		
 	// summernote add
-	public void addSummer(Board board) throws Exception;
+	public void addSummer(String content) throws Exception;
 	
 	// summernote get
 	public String getSummer(int boardNo) throws Exception;

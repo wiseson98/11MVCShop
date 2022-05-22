@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,23 +56,20 @@ public class ProductRestController {
 	@RequestMapping(value = "/uploadSummernoteImageFile")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws Exception{
-		System.out.println("서버까지");
-		Board board = new Board();
+		System.out.println("uploadSummernoteImageFile");
+		
 		String url = "";
 		if(multipartFile != null && !multipartFile.isEmpty()) {
 			String savedName = UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
 			
 			FileCopyUtils.copy(multipartFile.getBytes(), new File(uploadPath, savedName));
 			
-			board.setImage(savedName);
 			url = savedName;
 			
 		}else {
 			System.out.println("else");
 		}
-		
-		productService.addSummer(board);
-		
+				
 		return url;
 	}
 	

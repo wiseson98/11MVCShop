@@ -94,7 +94,7 @@
 				processData: false,
 				success: function(data){
 					console.log(data);
-					$(el).summernote("editor.insertImage", "/images/uploadFiles/"+data);
+					$(el).summernote("editor.insertImage", "../images/uploadFiles/"+data);					
 				}
 				
 				
